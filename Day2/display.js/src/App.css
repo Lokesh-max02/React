@@ -1,0 +1,22 @@
+.navbar{
+    background-color: red;
+    padding: 20px;
+    
+}
+.parent{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 20px;
+}
+.cards{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
