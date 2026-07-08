@@ -1,0 +1,91 @@
+$( document ).ready(function() {
+
+new WOW().init();
+
+$(function() {
+  $('.dropdown-item').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top -90
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
+
+  $('#amberger').click(function(){
+  		$(this).toggleClass('open');
+  	});
+    $(window).scroll(function() {
+            var scroll = $(window).scrollTop();
+            if (scroll >= 1) {
+            $(".navbar").addClass("position-top");
+            } else {
+            $(".navbar").removeClass("position-top");
+        }
+    });
+//if window position is scrolled then add class
+    var windowpos = $(window).scrollTop();
+    if (windowpos >= 1) {
+			$(".navbar").addClass("position-top");
+		}
+
+
+
+if($(window).width()>991)
+{
+  $('.drp-dwn').hover(function() {
+	   $(this).find('.drp-dwn-opc').addClass('drp-dwn-opc-hvr');
+     $(this).find('.dropdown-menu').addClass('dropdown-menu-hvr');
+	   }, function() {
+	   $(this).find('.drp-dwn-opc').removeClass('drp-dwn-opc-hvr');
+    $(this).find('.dropdown-menu').removeClass('dropdown-menu-hvr');
+	});
+
+
+}
+if($(window).width()<=991)
+{
+    $('.drp-dwn').click(function() {
+       $(this).find('.dropdown-menu').toggleClass('dropdown-menu-hvr');
+    });
+    $('.dropdown-item').click(function() {
+      $('#navbarSupportedContent').removeClass('show');
+      $('#amberger').removeClass('open');
+
+    });
+
+}
+
+});
+
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    nav: true,
+    responsive:{
+        0:{
+            margin:10,
+            items:1
+        },
+        575:{
+          margin:15,
+            items:2
+        },
+        768:{
+          margin:30,
+            items:2
+        },        
+        1280:{
+          margin:40,
+            items:3
+        },
+        1600:{
+          margin:40,
+            items:4
+        }
+    }
+})
