@@ -1,0 +1,132 @@
+.hero{
+    position:relative;
+    height:100vh;
+    overflow:hidden;
+    background:#eaf0fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Heading */
+
+.content{
+    text-align:center;
+    z-index:5;
+    animation:textUp 1.5s ease;
+}
+
+.title{
+    font-size:75px;
+    font-weight:300;
+    color:#1327a3;
+    line-height:1.1;
+}
+
+button{
+    margin-top:35px;
+    border:none;
+    background:transparent;
+    font-size:28px;
+    color:#1327a3;
+    border-bottom:2px solid #1327a3;
+    cursor:pointer;
+}
+
+/* Images */
+
+.img{
+    position:absolute;
+    object-fit:cover;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+/* Left */
+
+.img1{
+    width:260px;
+    height:420px;
+    left:40px;
+    top:120px;
+    animation:float1 5s ease-in-out infinite;
+}
+
+/* Top */
+
+.img2{
+    width:330px;
+    height:190px;
+    top:40px;
+    left:50%;
+    transform:translateX(-50%);
+    animation:float2 6s ease-in-out infinite;
+}
+
+/* Right */
+
+.img3{
+    width:420px;
+    height:520px;
+    right:-40px;
+    top:160px;
+    animation:float3 5s ease-in-out infinite;
+}
+
+/* Bottom Circle */
+
+.img4{
+    width:330px;
+    height:330px;
+    border-radius:50%;
+    bottom:-70px;
+    left:280px;
+    animation:float4 6s ease-in-out infinite;
+}
+
+/* Animations */
+
+@keyframes float1{
+0%{transform:translateY(0);}
+50%{transform:translateY(-25px);}
+100%{transform:translateY(0);}
+}
+
+@keyframes float2{
+0%{transform:translate(-50%,0);}
+50%{transform:translate(-50%,20px);}
+100%{transform:translate(-50%,0);}
+}
+
+@keyframes float3{
+0%{transform:translateY(0);}
+50%{transform:translateY(-30px);}
+100%{transform:translateY(0);}
+}
+
+@keyframes float4{
+0%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+100%{transform:translateY(0);}
+}
+
+@keyframes textUp{
+
+0%{
+opacity:0;
+transform:translateY(70px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* Hover */
+
+.img:hover{
+    transform:scale(1.08);
+    transition:.5s;
+}
