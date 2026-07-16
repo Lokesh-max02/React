@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import Studentcard from './components/Studentcard'
 import Employee from './components/Employee'
 import Navbar from './components/Navbar'
+import Parent from './components/Parent'
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
           <Route path="/" element={<Studentcard/>}/>
           <Route path="/Employee" element={<Employee/>}/>
         </Routes>
-    
+    <Parent/>
+    <Home/>
     </>
   )
 }
