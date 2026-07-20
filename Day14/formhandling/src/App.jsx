@@ -1,12 +1,11 @@
 import React from 'react'
-import Form from './component/Form'
+import Form from './components/Form'
 
 const App = () => {
   return (
    <>
-   <div className='p-4'>
-    <Form/>
-   </div>
+   <Form/>
+   
    </>
   )
 }
