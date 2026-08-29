@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ivory text-stone font-body antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', serif;
+}
+
+/* Signature motif: a kolam-style dotted divider, standing in for a plain hairline */
+.kolam-divider {
+  height: 1px;
+  background-image: radial-gradient(circle, rgba(122, 27, 61, 0.35) 1.5px, transparent 1.5px);
+  background-size: 14px 1px;
+  background-repeat: repeat-x;
+}
+
+.kolam-divider-gold {
+  height: 1px;
+  background-image: radial-gradient(circle, rgba(201, 150, 43, 0.55) 1.5px, transparent 1.5px);
+  background-size: 14px 1px;
+  background-repeat: repeat-x;
+}
+
+/* Signature motif: mandapam arch frame used for hall imagery throughout the site */
+.arch-frame {
+  border-radius: 50% 50% 8px 8px / 30% 30% 8px 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.arch-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 6px rgba(251, 246, 236, 0.9), inset 0 0 0 8px rgba(201, 150, 43, 0.55);
+  pointer-events: none;
+}
+
+.input {
+  @apply w-full rounded-lg border border-stone/15 px-3.5 py-2.5 text-sm text-stone outline-none bg-white;
+}
+.input:focus-visible {
+  @apply border-kumkum;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+::selection {
+  background: #C9962B;
+  color: #FBF6EC;
+}
+
+/* Visible keyboard focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #C9962B;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
