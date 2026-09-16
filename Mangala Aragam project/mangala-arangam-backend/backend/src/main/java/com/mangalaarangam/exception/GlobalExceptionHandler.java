@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -60,6 +61,16 @@ public class GlobalExceptionHandler {
         ApiError error = new ApiError(400, "Validation Failed", "One or more fields are invalid.",
                 LocalDateTime.now(), fieldErrors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    // Fires when a path variable expected to be a number (e.g. /api/halls/{id})
+    // gets a non-numeric value instead — like a stray/mistyped URL segment.
+    // Without this, such requests fall through to a raw, unhelpful 500.
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiError> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String message = String.format("'%s' is not a valid value for '%s'.", ex.getValue(), ex.getName());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiError(400, "Bad Request", message));
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { FaHeart, FaRegHeart, FaUserFriends } from 'react-icons/fa'
+import { FaHeart, FaRegHeart, FaUserFriends, FaBalanceScale, FaCheck } from 'react-icons/fa'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import RatingStars from './RatingStars'
 import StatusBadge from './StatusBadge'
 import { useAuth } from '../context/AuthContext'
 
-export default function HallCard({ hall, wishlisted: controlledWishlisted, onToggleWishlist }) {
+export default function HallCard({ hall, wishlisted: controlledWishlisted, onToggleWishlist, comparing, onToggleCompare }) {
   const { isAuthenticated, user } = useAuth()
   const [localWishlisted, setLocalWishlisted] = useState(false)
   const isControlled = controlledWishlisted !== undefined
@@ -27,7 +27,9 @@ export default function HallCard({ hall, wishlisted: controlledWishlisted, onTog
     <motion.div
       whileHover={{ y: -8 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-      className="group bg-white rounded-2xl shadow-card border border-stone/5 overflow-hidden"
+      className={`group bg-white rounded-2xl shadow-card border overflow-hidden transition-colors ${
+        comparing ? 'border-gold ring-2 ring-gold/40' : 'border-stone/5'
+      }`}
     >
       <div className="relative p-3 pb-0">
         <div className="arch-frame h-52">
@@ -39,19 +41,36 @@ export default function HallCard({ hall, wishlisted: controlledWishlisted, onTog
             transition={{ duration: 0.5, ease: 'easeOut' }}
           />
         </div>
-        <motion.button
-          onClick={handleToggle}
-          whileTap={{ scale: 0.8 }}
-          aria-label="Toggle wishlist"
-          className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-kumkum shadow-soft"
-        >
-          <motion.span
-            animate={wishlisted ? { scale: [1, 1.35, 1] } : { scale: 1 }}
-            transition={{ duration: 0.35 }}
-          >
-            {wishlisted ? <FaHeart size={14} /> : <FaRegHeart size={14} />}
-          </motion.span>
-        </motion.button>
+        <div className="absolute top-6 right-6 flex flex-col gap-2">
+          {canUseWishlist && (
+            <motion.button
+              onClick={handleToggle}
+              whileTap={{ scale: 0.8 }}
+              aria-label="Toggle wishlist"
+              className="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-kumkum shadow-soft"
+            >
+              <motion.span
+                animate={wishlisted ? { scale: [1, 1.35, 1] } : { scale: 1 }}
+                transition={{ duration: 0.35 }}
+              >
+                {wishlisted ? <FaHeart size={14} /> : <FaRegHeart size={14} />}
+              </motion.span>
+            </motion.button>
+          )}
+          {onToggleCompare && (
+            <motion.button
+              onClick={() => onToggleCompare(hall.id, !comparing)}
+              whileTap={{ scale: 0.8 }}
+              aria-label={comparing ? 'Remove from comparison' : 'Add to comparison'}
+              title={comparing ? 'Remove from comparison' : 'Add to comparison'}
+              className={`w-9 h-9 rounded-full flex items-center justify-center shadow-soft transition-colors ${
+                comparing ? 'bg-gold text-ivory' : 'bg-white/90 text-stone/60'
+              }`}
+            >
+              {comparing ? <FaCheck size={13} /> : <FaBalanceScale size={13} />}
+            </motion.button>
+          )}
+        </div>
         <div className="absolute top-6 left-6">
           <StatusBadge status={hall.status} size="sm" />
         </div>

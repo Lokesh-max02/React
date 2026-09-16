@@ -6,9 +6,9 @@ spring:
     name: mangala-arangam-backend
 
   datasource:
-    url: jdbc:mysql://localhost:3306/mangala_arangam?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    url: ${DB_URL:jdbc:mysql://localhost:3306/mangala_arangam?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true}
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root123}
+    password: ${DB_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -29,8 +29,8 @@ spring:
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:lokeshj6379@gmail.com}
-    password: ${MAIL_PASSWORD:ifrwexhheplakdko}
+    username: ${MAIL_USERNAME:your-email@gmail.com}
+    password: ${MAIL_PASSWORD:your-16-char-app-password}
     properties:
       mail:
         smtp:

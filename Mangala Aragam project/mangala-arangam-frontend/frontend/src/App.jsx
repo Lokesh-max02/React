@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 
 import Home from './pages/Home'
 import Halls from './pages/Halls'
+import CompareHalls from './pages/CompareHalls'
 import HallDetails from './pages/HallDetails'
 import Booking from './pages/Booking'
 import BookingConfirmation from './pages/BookingConfirmation'
@@ -13,6 +14,7 @@ import MyBookings from './pages/MyBookings'
 import BookingDetails from './pages/BookingDetails'
 import Wishlist from './pages/Wishlist'
 import Login from './pages/Login'
+import ForgotPassword from './pages/ForgotPassword'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import About from './pages/About'
@@ -68,6 +70,7 @@ export default function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<PageTransition><Home /></PageTransition>} />
             <Route path="/halls" element={<PageTransition><Halls /></PageTransition>} />
+            <Route path="/compare" element={<PageTransition><CompareHalls /></PageTransition>} />
             <Route path="/halls/:id" element={<PageTransition><HallDetails /></PageTransition>} />
             <Route path="/book/:hallId" element={<PageTransition><ProtectedRoute roles={['ROLE_CUSTOMER']}><Booking /></ProtectedRoute></PageTransition>} />
             <Route path="/booking-success" element={<PageTransition><BookingConfirmation /></PageTransition>} />
@@ -77,6 +80,7 @@ export default function App() {
             <Route path="/wishlist" element={<PageTransition><ProtectedRoute roles={['ROLE_CUSTOMER']}><Wishlist /></ProtectedRoute></PageTransition>} />
             <Route path="/profile" element={<PageTransition><ProtectedRoute><Profile /></ProtectedRoute></PageTransition>} />
             <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+            <Route path="/forgot-password" element={<PageTransition><ForgotPassword /></PageTransition>} />
             <Route path="/register" element={<PageTransition><Register /></PageTransition>} />
             <Route path="/about" element={<PageTransition><About /></PageTransition>} />
             <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />

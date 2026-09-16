@@ -68,7 +68,12 @@ export default function Payment() {
       setReceipt(verified)
       setBooking((b) => ({ ...b, paymentStatus: verified.payment.status }))
     } catch (err) {
-      setError(err.message || extractErrorMessage(err, 'Payment could not be completed.'))
+      // Prefer the backend's actual reason (e.g. "booking not confirmed yet")
+      // over Axios's generic "Request failed with status code 400". Plain
+      // Error objects thrown by razorpayService (cancel/gateway-load-failed)
+      // have no .response, so they fall through to err.message correctly.
+      const backendMessage = err?.response ? extractErrorMessage(err, null) : null
+      setError(backendMessage || err.message || 'Payment could not be completed.')
     } finally {
       setProcessing(false)
     }

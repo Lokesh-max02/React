@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { FaBalanceScale, FaTimes } from 'react-icons/fa'
 import SearchBar from '../components/SearchBar'
 import FilterSidebar from '../components/FilterSidebar'
 import HallCard from '../components/HallCard'
@@ -43,6 +44,19 @@ export default function Halls() {
   }, [isAuthenticated, user])
 
   const navigate = useNavigate()
+
+  const [compareIds, setCompareIds] = useState([])
+  const MAX_COMPARE = 3
+
+  const handleToggleCompare = (hallId, next) => {
+    setCompareIds((prev) => {
+      if (next) {
+        if (prev.includes(hallId) || prev.length >= MAX_COMPARE) return prev
+        return [...prev, hallId]
+      }
+      return prev.filter((id) => id !== hallId)
+    })
+  }
 
   const handleToggleWishlist = async (hallId, nextWishlisted) => {
     if (!isAuthenticated) {
@@ -177,6 +191,8 @@ export default function Halls() {
                       hall={h}
                       wishlisted={wishlistedIds.has(h.id)}
                       onToggleWishlist={handleToggleWishlist}
+                      comparing={compareIds.includes(h.id)}
+                      onToggleCompare={handleToggleCompare}
                     />
                   </RevealItem>
                 ))}
@@ -185,6 +201,37 @@ export default function Halls() {
           </AnimatePresence>
         </div>
       </div>
+
+      <AnimatePresence>
+        {compareIds.length >= 2 && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-stone text-ivory rounded-full shadow-soft pl-6 pr-2.5 py-2.5 flex items-center gap-4"
+          >
+            <span className="text-sm font-semibold">
+              Comparing {compareIds.length} hall{compareIds.length > 1 ? 's' : ''}
+            </span>
+            <motion.button
+              onClick={() => navigate(`/compare?ids=${compareIds.join(',')}`)}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center gap-2 px-5 py-2 rounded-full bg-gold text-stone text-sm font-semibold"
+            >
+              <FaBalanceScale size={13} /> Compare
+            </motion.button>
+            <button
+              onClick={() => setCompareIds([])}
+              aria-label="Clear comparison"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-ivory/60 hover:text-ivory hover:bg-white/10 transition-colors"
+            >
+              <FaTimes size={13} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
